@@ -95,7 +95,7 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                 binding.imageView.load(R.drawable.net_interneta)
             }
             is POTDState.Loading -> {
-                binding.imageView.load(R.drawable.ic_no_photo_vector)
+                binding.imageView.load(R.drawable.nasa_logo)
             }
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
@@ -206,6 +206,7 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                     calendar.set(Calendar.YEAR, mYear)
                     calendar.set(Calendar.MONTH, mMonth)
                     calendar.set(Calendar.DAY_OF_MONTH, mDay)
+                    calendar.get(Calendar.DATE-1)
 
                     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
