@@ -99,16 +99,43 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
             }
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
-                val url = pictureOfTheDayResponseData.url
-                binding.imageView.load(url) {
-                    lifecycle(this@POTDFragment)
-                    error(R.drawable.ic_load_error_vector)
-                    placeholder(R.drawable.ic_no_photo_vector)
+
+                if (pictureOfTheDayResponseData.mediaType.equals("video", true)){
+
+                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()){
+                        binding.imageView.load(R.drawable.ic_baseline_play_circle_filled_24)
+                    } else {
+                        binding.imageView.load(pictureOfTheDayResponseData.thumbnailUrl) {
+                            lifecycle(this@POTDFragment)
+                            error(R.drawable.ic_load_error_vector)
+                            placeholder(R.drawable.ic_no_photo_vector)
+                        }
+                    }
+
+                    binding.collapseHint.text = getString(R.string.open_video_hint)
+                    binding.APODTitle.text =
+                        pictureOfTheDayResponseData.title
+                    binding.includeBottomSheet.bottomSheetDescription.text =
+                        pictureOfTheDayResponseData.explanation
+
+                    binding.imageView.setOnClickListener {
+                        startActivity(Intent(Intent.ACTION_VIEW).apply {
+                            data = Uri.parse(pictureOfTheDayResponseData.url)
+                        })
+                    }
+
+                } else {
+                    val url = pictureOfTheDayResponseData.url
+                    binding.imageView.load(url) {
+                        lifecycle(this@POTDFragment)
+                        error(R.drawable.ic_load_error_vector)
+                        placeholder(R.drawable.ic_no_photo_vector)
+                    }
+                    binding.APODTitle.text =
+                        pictureOfTheDayResponseData.title
+                    binding.includeBottomSheet.bottomSheetDescription.text =
+                        pictureOfTheDayResponseData.explanation
                 }
-                binding.includeBottomSheet.bottomSheetDescriptionHeader.text =
-                    pictureOfTheDayResponseData.title
-                binding.includeBottomSheet.bottomSheetDescription.text =
-                    pictureOfTheDayResponseData.explanation
             }
         }
     }
@@ -167,17 +194,6 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
 
     }
 
-    private fun recreateFragment(backstackTag: String) {
-        requireActivity().let {
-            it.supportFragmentManager.popBackStack()
-            it.supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace(R.id.container, newInstance(), backstackTag)
-                addToBackStack(backstackTag)
-            }
-        }
-    }
-
     private fun setBottomAppBar() {
         val context = activity as MainActivity
         context.setSupportActionBar(binding.bottomAppBar)
@@ -203,10 +219,7 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                 datePickerDialog.setOnDateSetListener { _, mYear, mMonth, mDay ->
 
                     val calendar = Calendar.getInstance()
-                    calendar.set(Calendar.YEAR, mYear)
-                    calendar.set(Calendar.MONTH, mMonth)
-                    calendar.set(Calendar.DAY_OF_MONTH, mDay)
-                    calendar.get(Calendar.DATE-1)
+                    calendar.set(mYear, mMonth, mDay)
 
                     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 

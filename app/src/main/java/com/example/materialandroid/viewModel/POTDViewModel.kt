@@ -34,7 +34,7 @@ class POTDViewModel(
         if (apikey.isBlank()) {
             liveDataForViewToObserve.value = POTDState.Error(Throwable("wrong key"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apikey, date).enqueue(callback)
+            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apikey, date = date).enqueue(callback)
         }
     }
 
