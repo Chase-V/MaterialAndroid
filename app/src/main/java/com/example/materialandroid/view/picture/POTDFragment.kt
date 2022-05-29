@@ -131,6 +131,10 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
+                    binding.imageView.setOnClickListener {
+                        BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer).state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+                    binding.collapseHint.text = getString(R.string.pressImageText)
                     binding.APODTitle.text =
                         pictureOfTheDayResponseData.title
                     binding.includeBottomSheet.bottomSheetDescription.text =

@@ -30,6 +30,16 @@
             tools:src="@drawable/net_interneta" />
 
         <TextView
+            android:id="@+id/scrollableCollapseHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pressImageText"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollablePageImageView" />
+
+        <TextView
             android:id="@+id/scrollablePageDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +47,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollablePageImageView"
+            app:layout_constraintTop_toBottomOf="@id/scrollableCollapseHint"
             tools:text="SomeText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

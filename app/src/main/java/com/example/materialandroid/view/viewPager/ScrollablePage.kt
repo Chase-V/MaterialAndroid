@@ -1,6 +1,8 @@
 package com.example.materialandroid.view.viewPager
 
 import android.content.ContentValues.TAG
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -81,17 +83,45 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
             }
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
-                val url = pictureOfTheDayResponseData.url
-                binding.scrollablePageImageView.load(url) {
-                    lifecycle(this@ScrollablePage)
-                    error(R.drawable.ic_load_error_vector)
-                    placeholder(R.drawable.ic_no_photo_vector)
+
+                if (pictureOfTheDayResponseData.mediaType.equals("video", true)){
+
+                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()){
+                        binding.scrollablePageImageView.load(R.drawable.ic_baseline_play_circle_filled_24)
+                    } else {
+                        binding.scrollablePageImageView.load(pictureOfTheDayResponseData.thumbnailUrl) {
+                            lifecycle(this@ScrollablePage)
+                            error(R.drawable.ic_load_error_vector)
+                            placeholder(R.drawable.ic_no_photo_vector)
+                        }
+                    }
+
+                    binding.scrollableCollapseHint.text = getString(R.string.open_video_hint)
+                    binding.scrollablePageTitle.text =
+                        pictureOfTheDayResponseData.title
+                    binding.scrollablePageDescription.text =
+                        pictureOfTheDayResponseData.explanation
+
+                    binding.scrollablePageImageView.setOnClickListener {
+                        startActivity(Intent(Intent.ACTION_VIEW).apply {
+                            data = Uri.parse(pictureOfTheDayResponseData.url)
+                        })
+                    }
+
+                } else {
+                    val url = pictureOfTheDayResponseData.url
+                    binding.scrollablePageImageView.load(url) {
+                        lifecycle(this@ScrollablePage)
+                        error(R.drawable.ic_load_error_vector)
+                        placeholder(R.drawable.ic_no_photo_vector)
+                    }
+                    binding.scrollablePageTitle.text =
+                        pictureOfTheDayResponseData.title
+                    binding.scrollablePageDescription.text =
+                        pictureOfTheDayResponseData.explanation
                 }
-                binding.scrollablePageTitle.text =
-                    pictureOfTheDayResponseData.title
-                binding.scrollablePageDescription.text =
-                    pictureOfTheDayResponseData.explanation
             }
         }
     }
+
 }
