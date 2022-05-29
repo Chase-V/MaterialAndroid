@@ -1,10 +1,8 @@
 package com.example.materialandroid.view.viewPager
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,9 +82,9 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
 
-                if (pictureOfTheDayResponseData.mediaType.equals("video", true)){
+                if (pictureOfTheDayResponseData.mediaType.equals("video", true)) {
 
-                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()){
+                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()) {
                         binding.scrollablePageImageView.load(R.drawable.ic_baseline_play_circle_filled_24)
                     } else {
                         binding.scrollablePageImageView.load(pictureOfTheDayResponseData.thumbnailUrl) {
