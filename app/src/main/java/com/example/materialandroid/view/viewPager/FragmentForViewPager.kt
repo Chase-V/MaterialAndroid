@@ -1,6 +1,5 @@
 package com.example.materialandroid.view.viewPager
 
-import android.graphics.Path
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +22,8 @@ class FragmentForViewPager : Fragment(R.layout.fragment_for_view_pager) {
         }
     }
 
-    private lateinit var fragmentForViewPagerAdapter:FragmentForViewPagerAdapter
-    private lateinit var viewPager:ViewPager2
+    private lateinit var fragmentForViewPagerAdapter: FragmentForViewPagerAdapter
+    private lateinit var viewPager: ViewPager2
 
     private var _binding: FragmentForViewPagerBinding? = null
 
@@ -34,7 +33,6 @@ class FragmentForViewPager : Fragment(R.layout.fragment_for_view_pager) {
         }
 
     private val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
 
 
     override fun onCreateView(
@@ -56,12 +54,12 @@ class FragmentForViewPager : Fragment(R.layout.fragment_for_view_pager) {
 
         val tabLayout = binding.tabs
 
-        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getDateForTabTitle(position)
         }.attach()
     }
 
-    private fun getDateForTabTitle(position: Int):String{
+    private fun getDateForTabTitle(position: Int): String {
         val calendar: Calendar = Calendar.getInstance()
         val dayBefore = calendar.add(Calendar.DATE, -position)
         return simpleDateFormat.format(calendar.time)

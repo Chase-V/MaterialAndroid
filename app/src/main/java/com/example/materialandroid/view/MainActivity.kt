@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         savedInstanceState.let {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace(R.id.container, POTDFragment())
+                replace(R.id.container, POTDFragment.newInstance())
             }
 
         }
