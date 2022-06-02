@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.commit
 import com.example.materialandroid.R
 import com.example.materialandroid.databinding.BottomNavigationLayoutBinding
+import com.example.materialandroid.view.viewPager.FragmentForViewPager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -28,8 +30,15 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navitionMenuOne -> {
-                    Toast.makeText(context, "One", Toast.LENGTH_SHORT).show()
+
+                    requireActivity().supportFragmentManager.commit{
+                        setReorderingAllowed(true)
+                        replace(R.id.container, FragmentForViewPager.newInstance())
+                        addToBackStack("ViewPagerFragment")
+                    }
+
                 }
+
                 R.id.navitionMenuTwo -> {
                     Toast.makeText(context, "Two", Toast.LENGTH_SHORT).show()
                 }

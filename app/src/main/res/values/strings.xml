@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidMaterial</string>
+    <string name="app_name">Material Android</string>
 
     <string name="photoOfTheDayStub">Фото дня</string>
     <string name="searchWiki">Найти в Википедии</string>
@@ -20,5 +20,8 @@
     <string name="THEME_KEY">SomeThemeKey</string>
     <string name="systemTheme">Системная</string>
     <string name="historyAPOD">History</string>
+    <string name="bottom_menu_viewPagerFragmentTitle">ViewPagerFragment</string>
+    <string name="bottom_menu_onSecondScreenTitle">На второй экран (пустышка)</string>
+    <string name="open_video_hint">Нажмите на картинку для просмотра видео</string>
 
 </resources>

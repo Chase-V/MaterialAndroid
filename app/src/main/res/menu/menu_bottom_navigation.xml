@@ -3,13 +3,11 @@
 
     <item
         android:id="@+id/navitionMenuOne"
-        android:icon="@drawable/ic_archive"
-        android:title="На первый экран"
-        />
+        android:icon="@drawable/ic_baseline_pages_24"
+        android:title="@string/bottom_menu_viewPagerFragmentTitle" />
     <item
         android:id="@+id/navitionMenuTwo"
         android:icon="@drawable/ic_send"
-        android:title="На второй экран"
-        />
+        android:title="@string/bottom_menu_onSecondScreenTitle" />
 
 </menu>
