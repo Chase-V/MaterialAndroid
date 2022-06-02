@@ -1,4 +1,4 @@
-package com.example.materialandroid.view.viewPager
+package com.example.materialandroid.view.animations
 
 import android.content.Intent
 import android.net.Uri
@@ -7,21 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.materialandroid.R
-import com.example.materialandroid.databinding.ScrollablePageBinding
+import com.example.materialandroid.databinding.AnimationsFragmentBinding
 import com.example.materialandroid.viewModel.POTDState
 import com.example.materialandroid.viewModel.POTDViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
-class ScrollablePage : Fragment(R.layout.scrollable_page) {
+class AnimationsFragment : Fragment(R.layout.animations_fragment) {
 
     companion object {
-        fun newInstance(): ScrollablePage {
-            return ScrollablePage()
+        fun newInstance(): AnimationsFragment {
+            return AnimationsFragment()
         }
     }
 
@@ -29,9 +28,9 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
         ViewModelProvider(this).get(POTDViewModel::class.java)
     }
 
-    private var _binding: ScrollablePageBinding? = null
+    private var _binding: AnimationsFragmentBinding? = null
 
-    private val binding: ScrollablePageBinding
+    private val binding: AnimationsFragmentBinding
         get() {
             return _binding!!
         }
@@ -41,43 +40,45 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ScrollablePageBinding.inflate(inflater, container, false)
+        _binding = AnimationsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val actionBar: Toolbar = binding.toolbar
+        actionBar.inflateMenu(R.menu.animation_menu)
+        actionBar.setOnMenuItemClickListener {
 
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val calendar = Calendar.getInstance()
-
-
-        arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            val dayBefore = calendar.add(Calendar.DATE, -getInt(ARG_OBJECT))
-            viewModel.sendServerRequest(simpleDateFormat.format(calendar.time))
-
+            when (it.itemId) {
+                R.id.app_bar_search -> Toast.makeText(
+                    requireContext(),
+                    "Search",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.app_bar_second_button -> Toast.makeText(
+                    requireContext(),
+                    "Dummy button",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            true
         }
 
         viewModel.getData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        viewModel.sendServerRequest()
     }
 
     private fun renderData(state: POTDState) {
         when (state) {
             is POTDState.Error -> {
                 Toast.makeText(context, "Нет ответа от сервера :(", Toast.LENGTH_LONG).show()
-                binding.scrollablePageImageView.load(R.drawable.net_interneta)
+                binding.appBarImage.load(R.drawable.net_interneta)
             }
             is POTDState.Loading -> {
-                binding.scrollablePageImageView.load(R.drawable.nasa_logo)
+                binding.appBarImage.load(R.drawable.nasa_logo)
             }
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
@@ -85,22 +86,21 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
                 if (pictureOfTheDayResponseData.mediaType.equals("video", true)) {
 
                     if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()) {
-                        binding.scrollablePageImageView.load(R.drawable.ic_baseline_play_circle_filled_24)
+                        binding.appBarImage.load(R.drawable.ic_baseline_play_circle_filled_24)
                     } else {
-                        binding.scrollablePageImageView.load(pictureOfTheDayResponseData.thumbnailUrl) {
-                            lifecycle(this@ScrollablePage)
+                        binding.appBarImage.load(pictureOfTheDayResponseData.thumbnailUrl) {
+                            lifecycle(this@AnimationsFragment)
                             error(R.drawable.ic_load_error_vector)
                             placeholder(R.drawable.ic_no_photo_vector)
                         }
                     }
 
-                    binding.scrollableCollapseHint.text = getString(R.string.open_video_hint)
-                    binding.scrollablePageTitle.text =
+                    binding.collapseHeader.text =
                         pictureOfTheDayResponseData.title
-                    binding.scrollablePageDescription.text =
+                    binding.collapseDesc.text =
                         pictureOfTheDayResponseData.explanation
 
-                    binding.scrollablePageImageView.setOnClickListener {
+                    binding.appBarImage.setOnClickListener {
                         startActivity(Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(pictureOfTheDayResponseData.url)
                         })
@@ -108,18 +108,22 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
 
                 } else {
                     val url = pictureOfTheDayResponseData.url
-                    binding.scrollablePageImageView.load(url) {
-                        lifecycle(this@ScrollablePage)
+                    binding.appBarImage.load(url) {
+                        lifecycle(this@AnimationsFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
-                    binding.scrollablePageTitle.text =
+                    binding.collapseHeader.text =
                         pictureOfTheDayResponseData.title
-                    binding.scrollablePageDescription.text =
+                    binding.collapseDesc.text =
                         pictureOfTheDayResponseData.explanation
                 }
             }
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

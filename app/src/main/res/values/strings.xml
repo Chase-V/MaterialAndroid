@@ -23,5 +23,8 @@
     <string name="bottom_menu_viewPagerFragmentTitle">ViewPagerFragment</string>
     <string name="bottom_menu_onSecondScreenTitle">На второй экран (пустышка)</string>
     <string name="open_video_hint">Нажмите на картинку для просмотра видео</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="collapsingtb_amp_animations"><![CDATA[CollapsingTB&Animations]]></string>
+    <string name="nasa">NASA</string>
 
 </resources>

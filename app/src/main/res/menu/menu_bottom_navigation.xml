@@ -8,6 +8,6 @@
     <item
         android:id="@+id/navitionMenuTwo"
         android:icon="@drawable/ic_send"
-        android:title="@string/bottom_menu_onSecondScreenTitle" />
+        android:title="@string/collapsingtb_amp_animations" />
 
 </menu>
