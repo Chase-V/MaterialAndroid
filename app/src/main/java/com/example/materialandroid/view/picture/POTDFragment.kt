@@ -169,7 +169,7 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
 
             android.R.id.home -> BottomNavigationDrawerFragment().show(
                 requireActivity().supportFragmentManager,
-                "BNDF"
+                "BottomNavDrawerFragment"
             )
         }
         return super.onOptionsItemSelected(item)
