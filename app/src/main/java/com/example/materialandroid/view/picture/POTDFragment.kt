@@ -3,6 +3,7 @@ package com.example.materialandroid.view.picture
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -22,6 +23,7 @@ import com.example.materialandroid.viewModel.POTDState
 import com.example.materialandroid.viewModel.POTDViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.stfalcon.imageviewer.StfalconImageViewer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,8 +83,10 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
             })
         }
 
-        binding.imageView.setOnClickListener {
-            bsBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.imageView.setOnLongClickListener {
+            BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer).state =
+                BottomSheetBehavior.STATE_EXPANDED
+            true
         }
 
         setBottomAppBar()
@@ -92,23 +96,28 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
         when (state) {
             is POTDState.Error -> {
                 Toast.makeText(context, "Нет ответа от сервера :(", Toast.LENGTH_LONG).show()
-                binding.imageView.load(R.drawable.net_interneta)
+                binding.imageView.load(R.drawable.net_interneta) { crossfade(700) }
             }
             is POTDState.Loading -> {
-                binding.imageView.load(R.drawable.nasa_logo)
+                binding.imageView.load(R.drawable.nasa_logo) { crossfade(300) }
             }
             is POTDState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
 
                 if (pictureOfTheDayResponseData.mediaType.equals("video", true)){
 
-                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()){
-                        binding.imageView.load(R.drawable.ic_baseline_play_circle_filled_24)
+                    if (pictureOfTheDayResponseData.thumbnailUrl.isNullOrEmpty()) {
+                        binding.imageView.load(R.drawable.ic_baseline_play_circle_filled_24) {
+                            crossfade(
+                                700
+                            )
+                        }
                     } else {
                         binding.imageView.load(pictureOfTheDayResponseData.thumbnailUrl) {
                             lifecycle(this@POTDFragment)
                             error(R.drawable.ic_load_error_vector)
                             placeholder(R.drawable.ic_no_photo_vector)
+                            crossfade(700)
                         }
                     }
 
@@ -126,13 +135,19 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
 
                 } else {
                     val url = pictureOfTheDayResponseData.url
+                    val hdUrl = pictureOfTheDayResponseData.hdurl
                     binding.imageView.load(url) {
                         lifecycle(this@POTDFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
+                        crossfade(700)
                     }
                     binding.imageView.setOnClickListener {
-                        BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer).state = BottomSheetBehavior.STATE_EXPANDED
+                        val images = mutableListOf<Drawable>(binding.imageView.drawable)
+
+                        StfalconImageViewer.Builder(context, images) { view, _ ->
+                            view.load(hdUrl)
+                        }.withTransitionFrom(binding.imageView).show()
                     }
                     binding.collapseHint.text = getString(R.string.pressImageText)
                     binding.APODTitle.text =
@@ -188,6 +203,7 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
     private fun startFragment(fragment: Fragment, backstackTag: String) {
 
         requireActivity().supportFragmentManager.commit {
+            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             setReorderingAllowed(true)
             replace(
                 R.id.container,

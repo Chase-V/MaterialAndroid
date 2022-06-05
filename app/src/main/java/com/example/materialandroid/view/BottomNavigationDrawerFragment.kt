@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.materialandroid.R
 import com.example.materialandroid.databinding.BottomNavigationLayoutBinding
@@ -31,24 +32,31 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             when (menuItem.itemId) {
                 R.id.navitionMenuOne -> {
 
-                    requireActivity().supportFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace(R.id.container, FragmentForViewPager.newInstance())
-                        addToBackStack("ViewPagerFragment")
-                    }
+                    startFragment(FragmentForViewPager.newInstance(), "ViewPager")
 
                 }
 
                 R.id.navitionMenuTwo -> {
-                    requireActivity().supportFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace(R.id.container, AnimationsFragment.newInstance())
-                        addToBackStack("ViewPagerFragment")
-                    }
+                    startFragment(AnimationsFragment.newInstance(), "Animations")
                 }
             }
+            dismiss()
             true
         }
+    }
+
+    private fun startFragment(fragment: Fragment, backstackTag: String) {
+
+        requireActivity().supportFragmentManager.commit {
+            setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+            setReorderingAllowed(true)
+            replace(
+                R.id.container,
+                fragment
+            )
+            addToBackStack(backstackTag)
+        }
+
     }
 
     override fun onCreateView(

@@ -7,7 +7,7 @@
     <string name="favourite">Избранное</string>
     <string name="settings">Настройки</string>
     <string name="search">Поиск</string>
-    <string name="pressImageText">Нажмите на картинку для просмотра описания.</string>
+    <string name="pressImageText">Удерживайте картинку для просмотра описания.</string>
     <string name="example_text_default">Default</string>
     <string name="example_text_entry">Entry</string>
     <string name="example_text_choice">Choice</string>
