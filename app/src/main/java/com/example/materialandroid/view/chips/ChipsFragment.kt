@@ -88,7 +88,6 @@ class ChipsFragment : Fragment(R.layout.chips_fragment) {
         }
 
         binding.chipForDelete.setOnCloseIconClickListener {
-            //binding.chipForDelete.visibility = View.GONE
             binding.chipForDelete.isChecked = false
         }
     }
