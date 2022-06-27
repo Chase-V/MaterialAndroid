@@ -211,7 +211,6 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
             )
             addToBackStack(backstackTag)
         }
-
     }
 
     private fun setBottomAppBar() {

@@ -116,10 +116,11 @@ class ScrollablePage : Fragment(R.layout.scrollable_page) {
                 } else {
                     val url = pictureOfTheDayResponseData.url
                     binding.scrollablePageImageView.load(url) {
+                        crossfade(700)
                         lifecycle(this@ScrollablePage)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
-                        crossfade(700)
+
                     }
 
                     binding.scrollablePageImageView.setOnClickListener {

@@ -1,0 +1,3 @@
+package com.example.materialandroid.view.uselessNotes
+
+class UselessNotesFragment
