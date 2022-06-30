@@ -1,6 +1,6 @@
 package com.example.materialandroid.viewModel
 
-import com.example.materialandroid.repository.POTDResponseData
+import com.example.materialandroid.model.pictureOfTheDay.POTDResponseData
 
 sealed class POTDState{
     data class Success(val pictureOfTheDayResponseData: POTDResponseData):POTDState()

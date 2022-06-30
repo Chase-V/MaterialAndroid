@@ -1,4 +1,4 @@
-package com.example.materialandroid.repository
+package com.example.materialandroid.model.pictureOfTheDay
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class POTDRetrofitImpl {
     private val baseUrl = "https://api.nasa.gov/"
-    fun getRetrofitImpl():POTDayAPI{
+    fun getRetrofitImpl(): POTDayAPI {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)

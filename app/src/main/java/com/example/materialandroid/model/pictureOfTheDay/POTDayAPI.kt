@@ -1,4 +1,4 @@
-package com.example.materialandroid.repository
+package com.example.materialandroid.model.pictureOfTheDay
 
 import retrofit2.Call
 import retrofit2.http.GET

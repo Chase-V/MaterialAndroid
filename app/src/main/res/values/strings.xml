@@ -26,5 +26,17 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="collapsingtb_amp_animations"><![CDATA[CollapsingTB&Animations]]></string>
     <string name="nasa">NASA</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut vestibulum lacus, eget auctor augue. Integer suscipit aliquet odio, non faucibus libero maximus facilisis. Curabitur.</string>
+    <string name="recycler_and_useless_notes">Recycler and useless notes</string>
+    <string name="DIALOG_KEY">DIALOG_KEY</string>
+    <string name="RESULT_KEY">RESULT_KEY</string>
+    <string name="editNoteSave">Сохранить</string>
+    <string name="useless_notes_in_apod">Useless Notes in APOD</string>
+    <string name="notes_reset">Сброс</string>
+    <string name="notes_filter_by_date">По дате</string>
+    <string name="notes_filter_by_important">По важному</string>
+    <string name="notes_filter_by_word">По слову</string>
+    <string name="add">Add</string>
 
 </resources>
