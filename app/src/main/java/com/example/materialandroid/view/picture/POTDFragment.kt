@@ -6,6 +6,10 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
+import android.text.style.TypefaceSpan
 import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -136,6 +140,33 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                 } else {
                     val url = pictureOfTheDayResponseData.url
                     val hdUrl = pictureOfTheDayResponseData.hdurl
+
+                    val text = pictureOfTheDayResponseData.explanation
+                    if (text.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), "Explanation is empty", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        val spannable = SpannableStringBuilder(text)
+                        val fontFace = requireContext().resources.getFont(R.font.poller_one)
+                        spannable.setSpan(
+
+                            TypefaceSpan(fontFace),
+                            0, 1,
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
+                        spannable.setSpan(
+
+                            RelativeSizeSpan(2f),
+                            0, 1,
+                            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                        )
+
+
+
+                        spannable.insert(0, "    ")
+                        binding.includeBottomSheet.bottomSheetDescription.text = spannable
+                    }
+
                     binding.imageView.load(url) {
                         lifecycle(this@POTDFragment)
                         error(R.drawable.ic_load_error_vector)
@@ -152,8 +183,8 @@ class POTDFragment : Fragment(R.layout.potd_fragment) {
                     binding.collapseHint.text = getString(R.string.pressImageText)
                     binding.APODTitle.text =
                         pictureOfTheDayResponseData.title
-                    binding.includeBottomSheet.bottomSheetDescription.text =
-                        pictureOfTheDayResponseData.explanation
+//                    binding.includeBottomSheet.bottomSheetDescription.text =
+//                        pictureOfTheDayResponseData.explanation
                 }
             }
         }

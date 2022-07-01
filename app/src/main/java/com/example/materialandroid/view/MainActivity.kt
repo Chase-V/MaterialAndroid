@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             4 -> setTheme(R.style.Theme_MaterialAndroid)
             else -> setTheme(R.style.Theme_MaterialAndroid)
         }
+
         setContentView(R.layout.activity_main)
         savedInstanceState.let {
             supportFragmentManager.commit {
