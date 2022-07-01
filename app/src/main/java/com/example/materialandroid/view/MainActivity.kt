@@ -6,7 +6,7 @@ import androidx.fragment.app.commit
 import com.example.materialandroid.R
 import com.example.materialandroid.view.picture.POTDFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
