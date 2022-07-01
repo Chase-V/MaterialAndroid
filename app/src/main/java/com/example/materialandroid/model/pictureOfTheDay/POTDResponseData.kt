@@ -1,4 +1,4 @@
-package com.example.materialandroid.repository
+package com.example.materialandroid.model.pictureOfTheDay
 
 import com.google.gson.annotations.SerializedName
 

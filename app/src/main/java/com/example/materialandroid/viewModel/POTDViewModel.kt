@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.materialandroid.BuildConfig
-import com.example.materialandroid.repository.POTDResponseData
-import com.example.materialandroid.repository.POTDRetrofitImpl
+import com.example.materialandroid.model.pictureOfTheDay.POTDResponseData
+import com.example.materialandroid.model.pictureOfTheDay.POTDRetrofitImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

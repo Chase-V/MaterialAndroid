@@ -2,12 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navitionMenuOne"
+        android:id="@+id/navigationMenuViewPager"
         android:icon="@drawable/ic_baseline_pages_24"
         android:title="@string/bottom_menu_viewPagerFragmentTitle" />
     <item
-        android:id="@+id/navitionMenuTwo"
+        android:id="@+id/navigationMenuCollapsingTBandAnimations"
         android:icon="@drawable/ic_send"
         android:title="@string/collapsingtb_amp_animations" />
+    <item
+        android:id="@+id/navigationMenuRecyclerAndNotes"
+        android:icon="@drawable/ic_note"
+        android:title="@string/recycler_and_useless_notes" />
 
 </menu>

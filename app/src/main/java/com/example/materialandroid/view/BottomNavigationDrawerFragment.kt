@@ -9,6 +9,7 @@ import androidx.fragment.app.commit
 import com.example.materialandroid.R
 import com.example.materialandroid.databinding.BottomNavigationLayoutBinding
 import com.example.materialandroid.view.animations.AnimationsFragment
+import com.example.materialandroid.view.uselessNotes.UselessNotesFragment
 import com.example.materialandroid.view.viewPager.FragmentForViewPager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -30,15 +31,21 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navitionMenuOne -> {
+                R.id.navigationMenuViewPager -> startFragment(
+                    FragmentForViewPager.newInstance(),
+                    "ViewPager"
+                )
 
-                    startFragment(FragmentForViewPager.newInstance(), "ViewPager")
+                R.id.navigationMenuCollapsingTBandAnimations -> startFragment(
+                    AnimationsFragment.newInstance(),
+                    "Animations"
+                )
 
-                }
+                R.id.navigationMenuRecyclerAndNotes -> startFragment(
+                    UselessNotesFragment.newInstance(),
+                    "Recycler"
+                )
 
-                R.id.navitionMenuTwo -> {
-                    startFragment(AnimationsFragment.newInstance(), "Animations")
-                }
             }
             dismiss()
             true
