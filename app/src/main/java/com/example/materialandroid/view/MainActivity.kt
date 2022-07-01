@@ -2,6 +2,7 @@ package com.example.materialandroid.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.commit
 import com.example.materialandroid.R
 import com.example.materialandroid.view.picture.POTDFragment
@@ -10,7 +11,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
 
         val prefs = getPreferences(MODE_PRIVATE)
         when (prefs.getInt(getString(R.string.THEME_KEY), -1)) {
@@ -21,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             else -> setTheme(R.style.Theme_MaterialAndroid)
         }
 
-        setContentView(R.layout.activity_main)
+
         savedInstanceState.let {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
