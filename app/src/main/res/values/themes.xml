@@ -58,4 +58,22 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_black</item>
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen.IconBackground">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="splashScreenIconSize">200dp</item>
+
+        <item name="windowSplashScreenIconBackgroundColor">@color/black</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.Uranus</item>
+    </style>
 </resources>
